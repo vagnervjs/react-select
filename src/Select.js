@@ -220,6 +220,7 @@ var Select = React.createClass({
 			inputValue: '',
 			filteredOptions: filteredOptions,
 			placeholder: !this.props.multi && values.length ? values[0].label : this.props.placeholder,
+			placeholderIcon: !this.props.multi && values.length ? values[0].iconClass : null,
 			focusedOption: !this.props.multi && values.length ? values[0] : filteredOptions[0]
 		};
 	},
@@ -716,7 +717,7 @@ var Select = React.createClass({
 		}
 
 		if (this.props.disabled || (!this.state.inputValue && (!this.props.multi || !value.length))) {
-			value.push(<div className="Select-placeholder" key="placeholder">{this.state.placeholder}</div>);
+			value.push(<div className="Select-placeholder" key="placeholder"><i className={this.state.placeholderIcon} />{this.state.placeholder}</div>);
 		}
 
 		var loading = this.state.isLoading ? <span className="Select-loading" aria-hidden="true" /> : null;
