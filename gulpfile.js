@@ -31,3 +31,33 @@ var taskConfig = {
 };
 
 initGulpTasks(gulp, taskConfig);
+
+
+/* ==========================================================================
+   Lib
+   ========================================================================== */
+
+var babel = require('gulp-babel');
+var del = require('del');
+
+gulp.task('clean:lib', function(done) {
+	del('./lib', done);
+});
+
+gulp.task('build:lib', function() {
+	return gulp.src([
+			'./src/**/*.js',
+			'!**/__tests__/**/*'
+		])
+		.pipe(babel({
+			plugins: [require('babel-plugin-object-assign')]
+		}))
+		.pipe(gulp.dest('./lib'));
+});
+
+gulp.task('watch:lib', ['build:lib'], function() {
+	return gulp.watch([
+			'./src/**/*.js',
+			'!**/__tests__/**/*'
+		], ['build:lib']);
+});
